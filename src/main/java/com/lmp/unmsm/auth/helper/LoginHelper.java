@@ -51,6 +51,8 @@ public class LoginHelper {
     String clientId;
     @Value("${google.client.secret}")
     String clientSecret;
+    @Value("${spring.host}")
+    String springHost;
 
     public User registerUser(String firstName, String lastName, String email, String password) {
         User user = new User();
@@ -75,8 +77,7 @@ public class LoginHelper {
 
         accountVerificationRepository.save(verification);
 
-        String link = "http://" + environment.getProperty("server.address", "localhost") + ":" +
-                environment.getProperty("server.port", "8080") + "/account-verification" +
+        String link = springHost + "/account-verification" +
                 "?id=" + verification.getId();
 
         EmailDetails emailDetails = new EmailDetails();
@@ -161,7 +162,7 @@ public class LoginHelper {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("code", code);
-        params.add("redirect_uri", "http://localhost:8080/grant-code");
+        params.add("redirect_uri", springHost + "/grant-code");
         params.add("client_id", clientId);
         params.add("client_secret", clientSecret);
         params.add("scope", "https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile");
@@ -210,8 +211,7 @@ public class LoginHelper {
 
         resetPasswordTokenRepository.save(resetPasswordToken);
 
-        String link = "http://" + environment.getProperty("server.address", "localhost") + ":" +
-                environment.getProperty("server.port", "8080") + "/change-password" +
+        String link = springHost + "/change-password" +
                 "?token=" + resetPasswordToken.getToken();
 
         EmailDetails emailDetails = new EmailDetails();
