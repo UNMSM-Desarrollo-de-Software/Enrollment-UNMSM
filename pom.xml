@@ -11,7 +11,7 @@
 	<groupId>com.lmp</groupId>
 	<artifactId>unmsm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>Enrollment-UNMSM</name>
 	<description>Proyecto para la mejora del proceso de matrícula en la UNMSM.</description>
 	<url/>
