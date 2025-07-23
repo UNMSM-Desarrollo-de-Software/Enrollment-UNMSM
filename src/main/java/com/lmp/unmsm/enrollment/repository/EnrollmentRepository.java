@@ -10,5 +10,5 @@ import java.util.List;
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Integer> {
 
     List<Enrollment> findByStudentEmail(String email);
-    List<Enrollment> findByPeriodAndStudentEmail(String email, String period);
+    List<Enrollment> findByPeriodAndStudentEmail(String period, String emai);
 }

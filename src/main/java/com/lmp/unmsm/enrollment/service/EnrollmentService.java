@@ -28,12 +28,8 @@ public class EnrollmentService {
         return enrollmentRepository.findAll();
     }
 
-    public List<Enrollment> findByPeriodAndStudentEmail(String email, String period) {
-        if (period == null) {
-            return enrollmentRepository.findByStudentEmail(email);
-        } else {
-            return enrollmentRepository.findByPeriodAndStudentEmail(email, period);
-        }
+    public List<Enrollment> findByPeriodAndStudentEmail(String period, String email) {
+        return enrollmentRepository.findByPeriodAndStudentEmail(period, email);
     }
 
     public Optional<Enrollment> findById(int id) {
