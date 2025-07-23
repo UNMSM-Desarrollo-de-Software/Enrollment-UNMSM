@@ -26,8 +26,8 @@ public class EnrollmentController {
     }
 
     @GetMapping
-    public List<Enrollment> findByStudentIdAndPeriod(@RequestParam("email") String email, @RequestParam("period") String period) {
-        return enrollmentService.findByPeriodAndStudentEmail(email, period);
+    public List<Enrollment> findByPeriodAndStudentEmail(@RequestParam("period") String period, @RequestParam("email") String email) {
+        return enrollmentService.findByPeriodAndStudentEmail(period, email);
     }
 
 }
