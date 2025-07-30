@@ -31,7 +31,8 @@ public class SecurityConfig {
             "/forgot_password.html",
             "/styles.css",
             "/sign-google.jpg",
-            "/sing-git.jpg"
+            "/sing-git.jpg",
+            "/api/saludo"
     };
 
     @Bean
