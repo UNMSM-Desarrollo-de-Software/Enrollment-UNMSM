@@ -2,9 +2,14 @@ package com.lmp.unmsm.auth.controller;
 
 import com.lmp.unmsm.auth.helper.LoginHelper;
 import com.lmp.unmsm.auth.model.LoginResponseDTO;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.Map;
 
 @RestController
 public class LoginController {
@@ -12,8 +17,8 @@ public class LoginController {
     LoginHelper loginHelper;
 
     @GetMapping("/test")
-    public String test() {
-        return "Hello World!";
+    public Map<String, String> test() {
+        return Map.of("message", "Hello World!");
     }
 
     @PostMapping("/register")
@@ -28,8 +33,23 @@ public class LoginController {
     }
 
     @GetMapping("/grant-code")
-    public LoginResponseDTO grantCode(@RequestParam("code") String code, @RequestParam("scope") String scope, @RequestParam("authuser") String authUser, @RequestParam("prompt") String prompt) {
-        return loginHelper.processGrantCode(code);
+    public void grantCode(@RequestParam("code") String code,
+                                      @RequestParam("scope") String scope,
+                                      @RequestParam("authuser") String authUser,
+                                      @RequestParam("prompt") String prompt,
+                                      HttpServletResponse response) throws IOException {
+        LoginResponseDTO loginResponse = loginHelper.processGrantCode(code);
+        Cookie cookie = new Cookie("accessToken", loginResponse.getAccessToken());
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false); // true si usas HTTPS
+        cookie.setPath("/");
+        cookie.setMaxAge(3600);
+        cookie.setDomain("localhost");
+
+        response.addCookie(cookie);
+
+        // Redirige al frontend ya autenticado
+        response.sendRedirect("http://localhost:3000/dashboard");
     }
 
     @GetMapping("/account-verification")

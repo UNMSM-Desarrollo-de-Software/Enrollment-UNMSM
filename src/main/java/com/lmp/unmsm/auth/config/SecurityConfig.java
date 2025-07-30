@@ -20,6 +20,7 @@ public class SecurityConfig {
     private static final String[] WHITELIST_URLS = {
             "/register",
             "/login",
+            "/test",
             "/grant-code",
             "/account-verification",
             "/generate-reset-password-link",
@@ -32,7 +33,7 @@ public class SecurityConfig {
             "/styles.css",
             "/sign-google.jpg",
             "/sing-git.jpg",
-            "/api/saludo"
+            "/enrollments"
     };
 
     @Bean
