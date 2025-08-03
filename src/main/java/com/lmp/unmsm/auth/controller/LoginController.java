@@ -45,8 +45,15 @@ public class LoginController {
         cookie.setPath("/");
         cookie.setMaxAge(3600);
         cookie.setDomain("localhost");
-
         response.addCookie(cookie);
+
+        Cookie emailCookie = new Cookie("userEmail", loginResponse.getEmail());
+        emailCookie.setHttpOnly(false); // ← visible por JavaScript
+        emailCookie.setSecure(false);   // cambia a true si usas HTTPS
+        emailCookie.setPath("/");
+        emailCookie.setMaxAge(3600);
+        emailCookie.setDomain("localhost");
+        response.addCookie(emailCookie);
 
         // Redirige al frontend ya autenticado
         response.sendRedirect("http://localhost:3000/dashboard");

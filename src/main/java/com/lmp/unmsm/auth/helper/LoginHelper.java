@@ -124,7 +124,6 @@ public class LoginHelper {
 
     public LoginResponseDTO processGrantCode(String code) {
         String accessToken = getOauthAccessTokenGoogle(code);
-
         User googleUser = getProfileDetailsGoogle(accessToken);
         User user = userRepository.findByEmail(googleUser.getEmail());
 
@@ -132,7 +131,16 @@ public class LoginHelper {
             user = registerUser(googleUser.getFirstName(), googleUser.getLastName(), googleUser.getEmail(), googleUser.getPassword());
         }
 
-        return saveTokenForUser(user);
+        // Obtener token, refresh y expiración
+        LoginResponseDTO tokenInfo = saveTokenForUser(user);
+
+        // Crear nuevo DTO con email incluido
+        return new LoginResponseDTO(
+                tokenInfo.getAccessToken(),
+                tokenInfo.getRefreshToken(),
+                tokenInfo.getExpirationTime(),
+                user.getEmail()
+        );
     }
 
     private User getProfileDetailsGoogle(String accessToken) {
