@@ -1,5 +1,6 @@
 package com.lmp.unmsm.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,11 +24,18 @@ public class User implements UserDetails {
     private String lastName;
 
     private String email;
+
+    @JsonIgnore
     private String password;
+
+    @JsonIgnore
     private String role;
+
+    @JsonIgnore
     private boolean enabled;
 
     @Column(name = "email_verified")
+    @JsonIgnore
     private boolean emailVerified;
 
     @Override
