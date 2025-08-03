@@ -33,7 +33,9 @@ public class SecurityConfig {
             "/styles.css",
             "/sign-google.jpg",
             "/sing-git.jpg",
-            "/enrollments"
+            "/enrollments",
+            "/enrollment-courses",
+            "/sections"
     };
 
     @Bean
